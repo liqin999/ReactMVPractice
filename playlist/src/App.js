@@ -1,0 +1,139 @@
+import React, { Component } from 'react';
+import Header from './components/Header'
+import Main from './components/Main'
+import Footer from './components/Footer'
+
+class App extends Component {
+  constructor(props){
+		super(props);
+		this.state = {
+			tempIndex : 3,//用于存放临时的id，真是的数据则不用设置id,直接从后台获取数据
+			
+			dataList:[//需要显示的歌曲的列表
+				{	
+					  id: 0,
+	                  title: "空白格",
+	                  singer: "蔡健雅",
+	                  selected: true,
+	                  like: false
+				},{
+					  id: 1,
+	                  title: "空白格22",
+	                  singer: "蔡健雅22",
+	                  selected: true,
+	                  like: false
+				},{
+					  id: 2,
+	                  title: "空白格33",
+	                  singer: "蔡健雅33",
+	                  selected: true,
+	                  like: true
+				}
+			]
+
+		};
+		this.addList = this.addList.bind(this);
+		this.selectAll = this.selectAll.bind(this);
+		this.setCheck = this.setCheck.bind(this);
+		this.deleteItem = this.deleteItem.bind(this);
+		this.ischeckAll = this.ischeckAll.bind(this);//实现全选的状态是根据数据的来控制的
+		this.setLick = this.setLick.bind(this);
+		this.deleteSel = this.deleteSel.bind(this);
+		
+  }
+  addList(title,singer){
+	  	let dataList= this.state.dataList;
+	  	let id = this.state.tempIndex;
+	  	dataList.push({
+	  		  id: id,
+	          title: title,
+	          singer: singer,
+	          selected: false,
+	          like: false
+	  	});
+	  	id= id+1;
+	  	this.setState({//数据驱, 数据改变的时候，视图也会发生改变
+	  		tempIndex:id,
+	  		dataList
+	  	})
+
+  }
+
+  selectAll(ischecked){
+  	//判断当前的状态是否是点击
+  		let dataList = this.state.dataList.map((item,index)=>{
+  			item.selected = ischecked;
+  			return item
+  		});
+  		this.setState({	  	
+	  		dataList
+	  	})
+  }
+
+  deleteItem(index){
+  		let dataList = this.state.dataList;
+  		dataList = dataList.filter(function(item){
+  		    return item.id !== index
+  		});
+  		console.log(dataList);
+  		this.setState({	  	
+	  		dataList
+	  	})
+  		
+
+  }
+  setCheck(index,checked){//设置单选的操作 判断id是否是点击的那一个  先传递过去id,然后在传到另外一个函数中
+  	let dataList = this.state.dataList;
+  	dataList[index].selected = checked;//将组件中的状态统一管理
+  	this.setState({	// 更新状态便于数据的同步  	
+	  		dataList
+	 })
+  }
+
+  setLick(index,checked){//设置单选的操作 判断id是否是点击的那一个  先传递过去id,然后在传到另外一个函数中
+  	let dataList = this.state.dataList;
+  	dataList[index].like = checked;//将组件中的状态统一管理
+  	this.setState({	  	
+	  		dataList
+	 })
+  }
+
+   ischeckAll(){//是否是全选的状态是根据数据的改变  数组的map 受控组件
+		let dataList = this.state.dataList;
+		for(let i=0;i<dataList.length;i++){
+			if(!dataList[i].selected){
+				return false;
+			}
+		}
+		if(dataList.length == 0){
+			return false;
+		}
+		return true;
+	}
+	deleteSel(){//删除选中的歌曲  循环数据 将选中的状态的歌曲进行过滤掉
+		let dataList = this.state.dataList;
+		dataList = dataList.filter(function(item){
+  		    return !item.selected;
+  		});
+  		this.setState({	  	
+	  		dataList
+	    })
+
+	}
+  render() {
+  	console.log(this.ischeckAll())
+  	let {addList,selectAll,setCheck,deleteItem,ischeckAll,setLick,deleteSel} = this;
+  	let {dataList} = this.state;
+  	let dataLen = dataList.length;
+  	console.log(dataList.length)
+    return (
+      <div id="musicApp">
+             <Header {...{addList}}/>
+		  	 <Main {...{dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick}}/>
+		   	 <Footer {...{dataList,dataLen,deleteSel}}/>
+      </div>
+    );
+  }
+}
+
+export default App;
