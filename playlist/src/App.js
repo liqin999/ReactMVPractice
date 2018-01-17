@@ -29,8 +29,9 @@ class App extends Component {
 	                  selected: true,
 	                  like: true
 				}
-			]
-
+			],
+			likeDataList:[],//收藏列表
+			listState:true,//列表的状态,分为所有列表和收藏列表 
 		};
 		this.addList = this.addList.bind(this);
 		this.selectAll = this.selectAll.bind(this);
@@ -39,7 +40,21 @@ class App extends Component {
 		this.ischeckAll = this.ischeckAll.bind(this);//实现全选的状态是根据数据的来控制的
 		this.setLick = this.setLick.bind(this);
 		this.deleteSel = this.deleteSel.bind(this);
-		
+		this.selectLick = this.selectLick.bind(this);
+		this.lookLikeList = this.lookLikeList.bind(this);
+		this.lookAllList = this.lookAllList.bind(this);
+		this.cancelSelectLick = this.cancelSelectLick.bind(this);
+
+  }
+
+  componentDidMount(){
+  		let {dataList} = this.state;
+	 	let likeDataList = dataList.filter((item)=>{
+	  		return item.like
+	  	});
+		this.setState({
+	       likeDataList
+		});
   }
   addList(title,singer){
 	  	let dataList= this.state.dataList;
@@ -75,7 +90,6 @@ class App extends Component {
   		dataList = dataList.filter(function(item){
   		    return item.id !== index
   		});
-  		console.log(dataList);
   		this.setState({	  	
 	  		dataList
 	  	})
@@ -120,17 +134,49 @@ class App extends Component {
 	    })
 
 	}
+
+   selectLick(){//选中收藏的音乐
+   			//设置收藏清单
+	  	let {dataList} = this.state;
+	 	let likeDataList = dataList.filter((item)=>{
+	  		return item.like
+	  	});
+		this.setState({
+	       likeDataList
+		},function(){
+		    console.log(this.state.likeDataList)
+		});
+		
+   }
+   cancelSelectLick(){//取消收藏选中的歌曲 将收藏列表置为空 
+   		this.setState({
+   			likeDataList:[]
+   		})
+   }
+
+   lookLikeList(){//查看收藏的清单 
+   		this.setState({
+           listState:false
+   		})
+   }
+
+   lookAllList(){
+      this.setState({
+           listState:true
+   		})
+
+	}
   render() {
   	console.log(this.ischeckAll())
-  	let {addList,selectAll,setCheck,deleteItem,ischeckAll,setLick,deleteSel} = this;
-  	let {dataList} = this.state;
+  	let {addList,selectAll,setCheck,deleteItem,ischeckAll,setLick,deleteSel,selectLick,lookLikeList,lookAllList,cancelSelectLick} = this;
+  	let {dataList,likeDataList,listState} = this.state;
   	let dataLen = dataList.length;
-  	console.log(dataList.length)
+  	//收藏列表  根据数据进行过滤的
     return (
       <div id="musicApp">
              <Header {...{addList}}/>
-		  	 <Main {...{dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick}}/>
-		   	 <Footer {...{dataList,dataLen,deleteSel}}/>
+		  	 <Main {...{dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick,likeDataList,listState}}/>
+		   	 <Footer {...{dataList,dataLen,deleteSel,likeDataList,selectLick,lookLikeList,lookAllList,cancelSelectLick}}/>
       </div>
     );
   }

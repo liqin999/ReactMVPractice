@@ -8,7 +8,7 @@ export default class Main extends Component{
 	}
 
 	render(){
-		let {dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick} = this.props;
+		let {dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick,listState,likeDataList} = this.props;
 		return (
 			 <table className="main">
 		        <thead>
@@ -32,14 +32,36 @@ export default class Main extends Component{
 		            </tr>
 		        </thead>
 		        <tbody>
-		            {
- 						dataList.map((item,index)=>{//在列表中将索引也传递到具体的每一项中 应该传递id
-		            	  	return <Item 
-		            	  	key={index}
-		            	  	{...{item,setCheck,index,ischeckAll,deleteItem,setLick}}
-		            	  	/>
-		                })
-		            }
+		        		{
+		        			listState ? (//jsx中的插值表达式 可以是字符串 文本 数据  表达式 三元运算符
+		        				
+				 						dataList.map((item,index)=>{//在列表中将索引也传递到具体的每一项中 应该传递id
+						            	  	return <Item 
+						            	  	key={index}
+						            	  	{...{item,setCheck,index,ischeckAll,deleteItem,setLick}}
+						            	  	/>
+						                })
+						           
+		        		    	)  : (
+
+		        					
+		        					   likeDataList.map((item,index)=>{//在列表中将索引也传递到具体的每一项中 应该传递id
+						            	  	return <Item 
+						            	  	key={index}
+						            	  	{...{item,setCheck,index,ischeckAll,deleteItem,setLick}}
+						            	  	/>
+						                })
+		        					
+
+		        			
+		                           )
+
+		        			}
+
+		          
+
+
+
 		        </tbody>
 		    </table>
 
