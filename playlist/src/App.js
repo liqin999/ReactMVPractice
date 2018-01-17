@@ -171,7 +171,6 @@ class App extends Component {
   	let {addList,selectAll,setCheck,deleteItem,ischeckAll,setLick,deleteSel,selectLick,lookLikeList,lookAllList,cancelSelectLick} = this;
   	let {dataList,likeDataList,listState} = this.state;
   	let dataLen = dataList.length;
-  	//收藏列表  根据数据进行过滤的
     return (
       <div id="musicApp">
              <Header {...{addList}}/>
