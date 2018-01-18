@@ -5,7 +5,7 @@ export default class Footer extends Component{
 	}
 	render(){
 		let {dataList,deleteSel,selectLick,lookLikeList,lookAllList,cancelSelectLick,likeDataList} = this.props;
-		console.log(dataList)
+		
 		let selLen = 0;
 		dataList.forEach(function(el,i){
 			if(el.selected){// 使用数据控制视图的变化

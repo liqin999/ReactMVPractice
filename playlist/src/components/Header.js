@@ -11,7 +11,7 @@ export default class Header extends Component{
 		let {addList} = this.props;
 		return (
 			 <header>
-		        <h2 className="title">播放列表</h2>
+		        <h2 className="title">self播放列表</h2>
 		        <input
 		        value={this.state.title}
 		        onChange={(e)=>{

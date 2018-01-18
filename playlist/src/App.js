@@ -12,21 +12,21 @@ class App extends Component {
 			dataList:[//需要显示的歌曲的列表
 				{	
 					  id: 0,
-	                  title: "空白格",
+	                  title: "11空白格11",
 	                  singer: "蔡健雅",
 	                  selected: true,
 	                  like: false
 				},{
 					  id: 1,
-	                  title: "空白格22",
+	                  title: "22空白格22",
 	                  singer: "蔡健雅22",
-	                  selected: true,
+	                  selected: false,
 	                  like: false
 				},{
 					  id: 2,
-	                  title: "空白格33",
+	                  title: "33空白格33",
 	                  singer: "蔡健雅33",
-	                  selected: true,
+	                  selected: false,
 	                  like: true
 				}
 			],
@@ -94,7 +94,6 @@ class App extends Component {
 	  		dataList
 	  	})
   		
-
   }
   setCheck(index,checked){//设置单选的操作 判断id是否是点击的那一个  先传递过去id,然后在传到另外一个函数中
   	let dataList = this.state.dataList;
@@ -109,7 +108,15 @@ class App extends Component {
   	dataList[index].like = checked;//将组件中的状态统一管理
   	this.setState({	  	
 	  		dataList
-	 })
+	 });
+  	let likeDataList = dataList.filter((item)=>{
+  		return item.like;
+  	});
+  	 this.setState({	  	
+	  		likeDataList
+	 });
+  	//将收藏的数据放到收藏列表中
+
   }
 
    ischeckAll(){//是否是全选的状态是根据数据的改变  数组的map 受控组件
@@ -119,7 +126,7 @@ class App extends Component {
 				return false;
 			}
 		}
-		if(dataList.length == 0){
+		if(dataList.length === 0){
 			return false;
 		}
 		return true;
@@ -135,21 +142,35 @@ class App extends Component {
 
 	}
 
-   selectLick(){//选中收藏的音乐
+   selectLick(){//选中收藏的音乐  将选中的歌曲变成收藏
    			//设置收藏清单
 	  	let {dataList} = this.state;
+
+	  	dataList = dataList.map((item)=>{
+	  		if(item.selected){//判断数据时候是选中，选中的时候，将收藏设置成勾选的状态
+	  			item.like = true;
+	  		}
+	  		return item;
+	  	})
 	 	let likeDataList = dataList.filter((item)=>{
 	  		return item.like
 	  	});
 		this.setState({
-	       likeDataList
+	       likeDataList,
+	       dataList
 		},function(){
-		    console.log(this.state.likeDataList)
+		    
 		});
 		
    }
    cancelSelectLick(){//取消收藏选中的歌曲 将收藏列表置为空 
+   		let {dataList} = this.state;
+   		dataList= dataList.map((item)=>{
+   			item.like = false;
+   			return item;
+   		});//将收藏前面的勾选去掉
    		this.setState({
+   			dataList,
    			likeDataList:[]
    		})
    }
@@ -167,7 +188,7 @@ class App extends Component {
 
 	}
   render() {
-  	console.log(this.ischeckAll())
+  	
   	let {addList,selectAll,setCheck,deleteItem,ischeckAll,setLick,deleteSel,selectLick,lookLikeList,lookAllList,cancelSelectLick} = this;
   	let {dataList,likeDataList,listState} = this.state;
   	let dataLen = dataList.length;
