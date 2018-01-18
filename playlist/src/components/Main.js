@@ -11,8 +11,6 @@ export default class Main extends Component{
 		let {dataList,selectAll,setCheck,ischeckAll,deleteItem,setLick,listState,likeDataList} = this.props;
 
 		let likeDataLen = likeDataList.length;
-		console.log(likeDataLen)
-		console.log(likeDataList)
 
 		let showData = (listState || likeDataLen == 0)? dataList : likeDataList;
 
@@ -40,8 +38,6 @@ export default class Main extends Component{
 		        </thead>
 		        <tbody>
 		        		{
-
-
 	 						showData.map((item,index)=>{//在列表中将索引也传递到具体的每一项中 应该传递id
 			            	  	return <Item 
 			            	  	key={index}
@@ -71,15 +67,9 @@ export default class Main extends Component{
 
 		        			
 		                           )*/
-
-
-
 		        			}
 
 		          
-
-
-
 		        </tbody>
 		    </table>
 

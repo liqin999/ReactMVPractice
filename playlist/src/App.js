@@ -86,13 +86,21 @@ class App extends Component {
   }
 
   deleteItem(index){
-  		let dataList = this.state.dataList;
+  	debugger;
+  		let {dataList,likeDataList} = this.state;
   		dataList = dataList.filter(function(item){
   		    return item.id !== index
   		});
+	  	//如果是收藏列表则从收藏列表删除
+	  	likeDataList = likeDataList.filter(function(item){
+  		    return item.id !== index
+  		});
+
   		this.setState({	  	
-	  		dataList
-	  	})
+  			dataList,
+	  		likeDataList
+	  	});
+
   		
   }
   setCheck(index,checked){//设置单选的操作 判断id是否是点击的那一个  先传递过去id,然后在传到另外一个函数中
