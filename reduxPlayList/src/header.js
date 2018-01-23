@@ -1,6 +1,6 @@
 import React from "react";
-
-export default class Header extends React.Component {
+import { connect } from 'react-redux';
+ class Header extends React.Component {
     constructor(){
         super(...arguments);
         this.state = {
@@ -11,11 +11,11 @@ export default class Header extends React.Component {
     }
 
     goBack(){
-        this.props.e.history.goBack();
+        this.props.history.goBack();
     }
 
     render(){
-       
+       console.log(this.props)
         return (
             <header style={{'position':'relative'}}>
                 <h2 
@@ -50,14 +50,18 @@ export default class Header extends React.Component {
                 <input
                     type="button"
                     value="添加音乐"
-                    onClick={(e)=>{
-                        console.log(this.props.add)
-                        this.props.add(this.state.title,this.state.singer);
+                    onClick={(e)=>{//调用dispatch的方法
+                        this.props.dispatch({
+                            type:'ADD',
+                            title: this.state.title,
+                            singer: this.state.singer,
+                        })
+                       
                         this.setState({
                             title: "",
                             singer: ""
                         });
-                       this.props.e.history.push('/');//添加音乐成功后，跳转到列表页面
+                       this.props.history.push('/');//添加音乐成功后，跳转到列表页面
 
                     }}
                 />
@@ -65,3 +69,5 @@ export default class Header extends React.Component {
         );
     }
 }
+
+export default connect((state)=>state)(Header);

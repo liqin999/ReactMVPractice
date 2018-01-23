@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from 'react-redux';
 import Itme from "./item";
+import Footer from './footer'
 import {
   BrowserRouter as Router,
   Route,
@@ -7,7 +9,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-export default class Main extends React.Component {
+class Main extends React.Component {
     render(){
         let data = this.props.data;
         return (
@@ -54,7 +56,11 @@ export default class Main extends React.Component {
                     })}
                 </tbody>
             </table>
+
+            <Footer />
               </div>
         );
     }
 }
+
+export default connect((state)=>state)(Main);

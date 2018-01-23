@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 
 let data = (data=[],action)=>{
-
 	switch(action.type){
 		case 'ADD':
 			return [...data,{
