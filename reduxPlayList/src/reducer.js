@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 
-let data = (data=[],action)=>{
+let data = (data=[],action)=>{//reducer中规划data的数据形式
 	switch(action.type){
 		case 'ADD':
 			return [...data,{

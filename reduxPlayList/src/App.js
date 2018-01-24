@@ -20,7 +20,7 @@ import Footer from "./footer";
 
  class App extends React.Component {
     render(){
-      console.log(this.props);//拿到store 拿到store的状态
+      //console.log(this.props);//拿到store 拿到store的状态
         return (
             <BrowserRouter>
             	<div id="musicApp">

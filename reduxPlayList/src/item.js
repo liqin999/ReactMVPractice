@@ -1,10 +1,12 @@
 import React from "react";
-
-export default class Item extends React.Component {
+import { connect } from 'react-redux';
+class Item extends React.Component {
     render(){
         let data = this.props.data;
-        return (
-            <tr className={(data.selected?"selected":"")
+        console.log(this.props)
+        let list = null;
+        list = data.map((el,index)=>{
+            return ( <tr key={index} className={(data.selected?"selected":"")
             + (data.like?" like":"")}>
                 <td>
                     <input
@@ -15,12 +17,12 @@ export default class Item extends React.Component {
                         }}
                     />
                 </td>
-                <td>{data.title}</td>
-                <td>{data.singer}</td>
+                <td>{el.title}</td>
+                <td>{el.singer}</td>
                 <td>
                     <input
                         type="checkbox"
-                        checked = {data.like}
+                        checked = {el.like}
                         onChange = {
                             (e)=>{
                                 this.props.setLike(this.props.index,e.target.checked);
@@ -30,12 +32,23 @@ export default class Item extends React.Component {
                 </td>
                 <td>
                     <a onClick ={
-                        ()=>{
-                            this.props.remove(this.props.index);
+                        (e)=>{
+                            this.props.dispatch({
+                            type:'REMOVE',
+                            id: el.id,
+                          })
+                       
                         }
                     }>X</a>
                 </td>
-            </tr>
-        );
+            </tr>)
+
+        });
+
+        return (
+             <tbody>{list}</tbody>
+        )
     }
 }
+
+export default connect((state)=>state)(Item);

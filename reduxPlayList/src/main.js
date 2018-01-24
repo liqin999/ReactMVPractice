@@ -12,6 +12,7 @@ import {
 class Main extends React.Component {
     render(){
         let data = this.props.data;
+      
         return (
             <div>
                 <h2 style={{'textAlign':'center'}}>播放列表</h2>
@@ -43,18 +44,9 @@ class Main extends React.Component {
                         <th>删除</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {data.map((val,index)=>{
-                        return (<Itme
-                                key={index}
-                                data={val}
-                                index = {val.id}
-                                setCheck = {this.props.setCheck}
-                                setLike = {this.props.setLike}
-                                remove = {this.props.remove}
-                        />)
-                    })}
-                </tbody>
+               
+              {<Itme />}
+               
             </table>
 
             <Footer />
