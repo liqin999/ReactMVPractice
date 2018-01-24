@@ -11,9 +11,14 @@ class Item extends React.Component {
                 <td>
                     <input
                         type="checkbox"
-                        checked = {data.selected}
-                        onChange = {(e)=>{
-                            this.props.setCheck(this.props.index,e.target.checked);
+                        checked = {el.selected}
+                        onChange = {
+                            (e)=>{
+                              this.props.dispatch({
+                                    type:'SETCHECK',
+                                    id: el.id,
+                                    checked:e.target.checked
+                             })
                         }}
                     />
                 </td>
@@ -25,7 +30,11 @@ class Item extends React.Component {
                         checked = {el.like}
                         onChange = {
                             (e)=>{
-                                this.props.setLike(this.props.index,e.target.checked);
+                                this.props.dispatch({
+                                    type:'LIKE',
+                                    id: el.id,
+                                    checkd:e.target.checked
+                                  })
                             }
                         }
                     />

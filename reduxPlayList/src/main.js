@@ -10,9 +10,20 @@ import {
   Redirect
 } from 'react-router-dom';
 class Main extends React.Component {
+    constructor(props){
+        super(props);
+    }
     render(){
         let data = this.props.data;
-      
+        let isCheckAll = false;
+        for(var i=0;i<data.length;i++){//根据数据判断时候是完全的选中的情况
+            if(!data[i].selected){//如果有一项是false则为false
+                isCheckAll = false;
+                break;
+            }else{
+                isCheckAll = true;
+            }
+        }
         return (
             <div>
                 <h2 style={{'textAlign':'center'}}>播放列表</h2>
@@ -31,9 +42,13 @@ class Main extends React.Component {
                             <input
                                 type="checkbox"
                                 id="checkAll"
-                                checked={this.props.isCheckAll}
+                                checked={isCheckAll}
                                 onChange={(e)=>{
-                                    this.props.checkAll(e.target.checked);
+                                    this.props.dispatch({//使用dispatch 触发action 
+                                        type:'CHECKALL',
+                                        checked:e.target.checked
+                                    })
+                                    
                                 }}
                             />
                             <label htmlFor="checkAll">全选</label>
