@@ -2,13 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import Itme from "./item";
 import Footer from './footer'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 class Main extends React.Component {
     constructor(props){
         super(props);

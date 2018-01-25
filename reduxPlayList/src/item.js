@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 class Item extends React.Component {
     render(){
         let data = this.props.data;
-        console.log(this.props)
         let list = null;
         list = data.map((el,index)=>{
             return ( <tr key={index} className={(data.selected?"selected":"")
@@ -70,7 +69,7 @@ state是一个对象的形式
 
 export default connect((state,props)=>
 {
-    console.log(state,props);
+    
     let pathname = props.pathname;
     if(pathname === '/'){
         return Object.assign({},state);//将state返回

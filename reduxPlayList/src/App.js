@@ -1,11 +1,10 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 import Header from "./header";
 import {
   BrowserRouter,
   Route,
-  Link,
   Switch,
   Redirect
 } from 'react-router-dom';
@@ -13,27 +12,49 @@ import {
 import { connect } from 'react-redux';//将组件进行包装成容器组件
 //可以拿到state
 
-
 import Main from "./main";
-
 import Footer from "./footer";
 
+var $ = require("jquery");
+
  class App extends React.Component {
+    constructor(props){
+       super(props);
+       this.testAction = this.testAction.bind(this);
+    }
+
+    componentDidMount(){
+    //组件加载的时候，使用ajax从后台获取数据，
+    //然后分发一个disptch,
+    //在reducer中根据传递的数据进行修改默认的数据
+     this.testAction();
+    }
+
+    testAction(){
+      let props = this.props;
+        $.ajax({
+            url:'https://www.easy-mock.com/mock/5a693b79a8f61a09bd187a0b/example/music/initList',
+            type:'get',
+            data:{}
+          }).then(function(response){
+            const data = response.data;
+              props.dispatch({//触发action 
+                type:'GETDATA',
+                data:data
+             })
+                
+          })
+    }
+
     render(){
-      //console.log(this.props);//拿到store 拿到store的状态
         return (
             <BrowserRouter>
             	<div id="musicApp">
             		<Switch>
 	            		<Route path='/add' component={Header} />
-
 	            		<Route path='/'  render={(e)=>{
-	            			if(this.props.data.length == 0){
-	            			 return	<Redirect to='/add' />
-	            			}
-	            			return <Main location={e.location}/>
+	            			   return <Main location={e.location}/>
 	            		}} />
-
                   <Route path='/like'  render={(e)=>{
                     if(this.props.data.filter((el)=>el.like).length<1){
                         return  <Redirect to='/' />
