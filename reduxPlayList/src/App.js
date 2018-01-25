@@ -26,12 +26,21 @@ import Footer from "./footer";
             	<div id="musicApp">
             		<Switch>
 	            		<Route path='/add' component={Header} />
-	            		<Route path='/'  render={()=>{
+
+	            		<Route path='/'  render={(e)=>{
 	            			if(this.props.data.length == 0){
 	            			 return	<Redirect to='/add' />
 	            			}
-	            			return <Main />
+	            			return <Main location={e.location}/>
 	            		}} />
+
+                  <Route path='/like'  render={(e)=>{
+                    if(this.props.data.filter((el)=>el.like).length<1){
+                        return  <Redirect to='/' />
+                    }
+                    return <Main location={e.location}/>
+                  }} />
+
             		</Switch>
             	 </div>
             </BrowserRouter>

@@ -30,6 +30,9 @@ class Main extends React.Component {
                 <h3 style={{'textAlign':'right','cursor': 'pointer'}}>
                     <Link to="/add">添加歌曲</Link>
                 </h3>
+                 <h3 style={{'textAlign':'left','cursor': 'pointer'}}>
+                    <Link to="/like">收藏列表</Link>
+                </h3>
             <table
                 className="main"
                 style={{
@@ -70,4 +73,20 @@ class Main extends React.Component {
     }
 }
 
-export default connect((state)=>state)(Main);
+export default connect((state,props)=>{
+    console.log(state);
+    console.log(props);
+    let pathname = props.location.pathname;
+    if(pathname === '/'){
+        return Object.assign({},state);
+    }
+    if(pathname === '/like'){//不能直接改变 state
+        let data = {};
+        data.data = state.data.filter((el)=> el.like);
+        let obj = Object.assign({},state,data);
+          console.log(data)
+          console.log(obj)
+        return obj
+    }    
+    
+})(Main);
