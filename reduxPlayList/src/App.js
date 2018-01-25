@@ -20,17 +20,17 @@ var $ = require("jquery");
  class App extends React.Component {
     constructor(props){
        super(props);
-       this.testAction = this.testAction.bind(this);
+       this.getDefaultData = this.getDefaultData.bind(this);
     }
 
     componentDidMount(){
     //组件加载的时候，使用ajax从后台获取数据，
     //然后分发一个disptch,
     //在reducer中根据传递的数据进行修改默认的数据
-     this.testAction();
+     this.getDefaultData();
     }
 
-    testAction(){
+   getDefaultData(){
       let props = this.props;
         $.ajax({
             url:'https://www.easy-mock.com/mock/5a693b79a8f61a09bd187a0b/example/music/initList',
