@@ -15,7 +15,6 @@ import { connect } from 'react-redux';
     }
 
     render(){
-       console.log(this.props)
         return (
             <header style={{'position':'relative'}}>
                 <h2 

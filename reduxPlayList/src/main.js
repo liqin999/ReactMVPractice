@@ -24,14 +24,32 @@ class Main extends React.Component {
                 isCheckAll = true;
             }
         }
-        return (
+        let pathname = this.props.location.pathname;
+        return (//插值表达式的形式
             <div>
-                <h2 style={{'textAlign':'center'}}>播放列表</h2>
+                <h2 style={{'textAlign':'center'}}>
+                {pathname === '/like' ? '收藏' : '播放'}
+                列表
+                </h2>
+
                 <h3 style={{'textAlign':'right','cursor': 'pointer'}}>
                     <Link to="/add">添加歌曲</Link>
                 </h3>
                  <h3 style={{'textAlign':'left','cursor': 'pointer'}}>
                     <Link to="/like">收藏列表</Link>
+                    <span style={{"marginLeft":"15px"}}>
+                       <Link to="/">所有列表</Link>
+                    </span>
+                     <span 
+                        style={{"marginLeft":"15px"}}
+                        onClick={(e)=>{
+                               this.props.dispatch({
+                                    type:'SELECTCHECK'
+                               }) 
+                        }}
+                      >
+                        选中收藏的歌曲
+                    </span>
                 </h3>
             <table
                 className="main"
@@ -63,7 +81,7 @@ class Main extends React.Component {
                     </tr>
                 </thead>
                
-              {<Itme />}
+              {<Itme pathname={pathname} />}
                
             </table>
 
@@ -74,19 +92,5 @@ class Main extends React.Component {
 }
 
 export default connect((state,props)=>{
-    console.log(state);
-    console.log(props);
-    let pathname = props.location.pathname;
-    if(pathname === '/'){
-        return Object.assign({},state);
-    }
-    if(pathname === '/like'){//不能直接改变 state
-        let data = {};
-        data.data = state.data.filter((el)=> el.like);
-        let obj = Object.assign({},state,data);
-          console.log(data)
-          console.log(obj)
-        return obj
-    }    
-    
+   return state;
 })(Main);

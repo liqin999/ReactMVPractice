@@ -60,4 +60,27 @@ class Item extends React.Component {
     }
 }
 
-export default connect((state)=>state)(Item);
+/*在connect中第一个回调参数中，
+state代表是redux的store,props是自己的prop,
+state是一个对象的形式
+当 state 变化，或者 props 变化的时候，
+计算出一个新的 stateProps，更新给组件。
+在connect中修改state进而显示不同的视图
+*/
+
+export default connect((state,props)=>
+{
+    console.log(state,props);
+    let pathname = props.pathname;
+    if(pathname === '/'){
+        return Object.assign({},state);//将state返回
+    }
+    if(pathname === '/like'){
+        let data = {};
+        data.data = state.data.filter((el)=>el.like);
+        let obj = Object.assign({},data);
+        return obj
+    }
+}
+)
+(Item);

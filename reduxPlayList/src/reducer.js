@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 //在reducer中根据dispatch中 type的不同返回不同的state数据
 let data = (data=[],action)=>{//reducer中规划data的数据形式
-	switch(action.type){
+	switch(action.type){//不能直接修改state中的data数据
 		case 'ADD'://添加
 			return [...data,{
 				    id: Date.now(),
@@ -32,7 +32,13 @@ let data = (data=[],action)=>{//reducer中规划data的数据形式
 	   	 		item.selected = action.checked;
 	   	 		return item
 	   	 	})	
-
+	   	 case 'SELECTCHECK'://将选中设为收藏
+			return data.map((item,index)=>{
+				if(item.selected){
+					item.like = true;
+				}
+				return Object.assign({},item)
+			})	   	 	
 
 	}
 	return data;
