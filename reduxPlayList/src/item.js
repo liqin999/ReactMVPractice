@@ -69,7 +69,9 @@ state是一个对象的形式
 
 export default connect((state,props)=>
 {
-    
+    console.log(state);//reducer中的state是一个对象的形式，
+    //所以在操作合并的时候，也应该将操作之后的数据变成一个对象的形式{data:[{},{}]}
+
     let pathname = props.pathname;
     if(pathname === '/'){
         return Object.assign({},state);//将state返回
