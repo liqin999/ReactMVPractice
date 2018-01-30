@@ -19,5 +19,6 @@
   },
   "devDependencies": {
     "jquery": "^1.11.1"
-  }
+  },
+  "proxy":"http://www.weather.com.cn/"
 }
