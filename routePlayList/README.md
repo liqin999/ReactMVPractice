@@ -3,3 +3,5 @@
 ### 运行           npm start 
 ### 打包上线       npm run build 
 ### 周边           react-router  redux  
+
+### 使用HashRouter   实现刷新之后 跳转页面404的问题
