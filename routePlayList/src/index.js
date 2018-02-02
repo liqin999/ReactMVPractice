@@ -8,7 +8,8 @@ import {
   Route,
   Link,
   Switch,
-  Redirect
+  Redirect,
+  HashRouter 
 } from 'react-router-dom';
 class App extends React.Component {
     constructor(){
@@ -170,7 +171,7 @@ class App extends React.Component {
 
         return (
             <div id="musicApp">
-             <Router>
+             <HashRouter>
                  <Switch>
                     <Route path="/" exact render={
                         ()=>{//首页的重定向的
@@ -193,7 +194,7 @@ class App extends React.Component {
                             )
                     } />
                  </Switch>
-            </Router>
+            </HashRouter>
 
 
 
